@@ -22,6 +22,7 @@ const Pages = ({ json, path, locale, splitURL, fetchUrl }) => {
   const router = useRouter();
   const { pid } = router.query;
   console.log(data);
+  console.log(data);
 
   useEffect(() => {
     if (json) {

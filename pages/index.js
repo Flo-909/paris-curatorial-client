@@ -19,13 +19,30 @@ const Index = ({ json, path, locale }) => {
     }
   }, [json]);
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   return data ? (
     <div className={styles.container}>
       <Head>
-        <title>Paris Curatorial</title>
-        <title>{data.pageHeadline.toUpperCase()} | Paris Curatorial</title>
         <link rel="icon" href="/logo.png" />
-        <meta name="description" content={data.pageDescription} />
+        <title>{data.pageHeadline.toUpperCase()} | Paris Curatorial</title>
+        <meta
+          name="viewport"
+          content="width=device-width, initial-scale=1.0"
+        ></meta>
+        {data.metaTags
+          ? data.metaTags.map((tag) => {
+              if (tag.type === "MetaValue") {
+                return <meta name={tag.name} content={tag.value}></meta>;
+              } else if (tag.type === "MetaProperty") {
+                return <meta property={tag.name} content={tag.value} />;
+              }
+            })
+          : null}
+
+        {/* <meta name="description" content={data.pageDescription} />
         <meta name="keywords" content={data.pageDescription} />
         <meta name="author" content="Grigori Michel" />
         <meta name="application-name" content="Paris Curatorial" />
@@ -44,12 +61,12 @@ const Index = ({ json, path, locale }) => {
         <meta name="og:image" content="https://i.ibb.co/TTqY8Bx/logo.png" />
         <meta name="og:site_name" content="Paris Curatorial" />
         <meta name="og:description" content={data.pageHeadline.toUpperCase()} />
-        <meta name="link" content={data.projectLink} />
+        <meta name="link" content={data.projectLink} /> */}
       </Head>
 
       <main>
         <Menu />
-        <Home data={data} />
+        {path === "/" && <Home data={data} />}
       </main>
 
       <footer>{/* <Footer /> */}</footer>

@@ -5,6 +5,8 @@ import {
   PageMenu,
   MenuButtonComponent,
   FooterStyle,
+  FooterLink,
+  FooterContainer,
 } from "../styles/styles";
 import { Router } from "next/router";
 import Link from "next/link";
@@ -33,25 +35,27 @@ const Footer = () => {
     <FooterStyle>
       {contact ? (
         <div>
-          <div>
-          {contact.address}
-          </div>
-          <div>
-          <a href ={`mailto:${contact.email}`}>{contact.email}</a>
-          </div>
-          <div>
-          <a href={`tel:${contact.phoneNumber}`}>{contact.phoneNumber}</a>
-          </div>
+          <FooterLink>
+            <a href={`mailto:${contact.email}`}>{contact.email}</a>
+          </FooterLink>
+          <FooterLink>
+            <a href={`tel:${contact.phoneNumber}`}>{contact.phoneNumber}</a>
+          </FooterLink>
+          {contact.address1 && <FooterLink>{contact.address1}</FooterLink>}
+          {contact.address2 && <FooterLink>{contact.address2}</FooterLink>}
+          {contact.address3 && <FooterLink>{contact.address3}</FooterLink>}
+          {contact.address4 && <FooterLink>{contact.address4}</FooterLink>}
         </div>
       ) : null}
+
       {menu ? (
-        <div>
+        <FooterContainer>
           {menu.map((item) => (
-            <div>
+            <FooterLink>
               <Link href={item.url}>{item.name}</Link>
-            </div>
+            </FooterLink>
           ))}
-        </div>
+        </FooterContainer>
       ) : null}
     </FooterStyle>
   );

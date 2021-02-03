@@ -31,6 +31,10 @@ const Pages = ({ json, path, locale, splitURL, fetchUrl }) => {
     }
   }, [json]);
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   const renderContent = () => {
     if (splitURL)
       switch (splitURL) {
@@ -59,32 +63,41 @@ const Pages = ({ json, path, locale, splitURL, fetchUrl }) => {
       }
   };
 
-  console.log("data ==>", data);
+  // const buildTags = () => {
+  //   data.metaTags.reduce((acc, tag) => {
+  //     let meta;
+  //     if (tag.type === "MetaValue") {
+  //       meta = <meta name={tag.name} content={tag.value}></meta>;
+  //     } else if (tag.type === "MetaProperty") {
+  //       meta = <meta property={tag.name} content={tag.value} />;
+  //     }
+  //     return [...acc, meta];
+  //   }, []);
+  // };
+
+  // console.log("metaTags() ==>", metaTags());
   return pid && !loading && data && json ? (
     <div key={Date.now()}>
       <Head>
         <title>{data.pageHeadline.toUpperCase()} | Paris Curatorial</title>
         <link rel="icon" href="/logo.png" />
-        <meta name="description" content={data.pageDescription} />
-        <meta name="keywords" content={data.pageDescription} />
-        <meta name="author" content="Grigori Michel" />
-        <meta name="application-name" content="Paris Curatorial" />
-        <meta name="index" />
-        <meta name="robots" content="index,follow" />
-        <meta name="follow" />
         <meta
           name="viewport"
           content="width=device-width, initial-scale=1.0"
         ></meta>
-        <meta name="category" content="art"></meta>
-        <meta name="Classification" content="Art"></meta>
-        <meta name="og:title" content={data.contentSubheadline} key="title" />
-        <meta name="og:type" content="art" key="type" />
-        <meta name="og:url" content="https://i.ibb.co/TTqY8Bx/logo.png" />
-        <meta name="og:image" content="https://i.ibb.co/TTqY8Bx/logo.png" />
-        <meta name="og:site_name" content="Paris Curatorial" />
-        <meta name="og:description" content={data.pageHeadline.toUpperCase()} />
-        <meta name="link" content={data.projectLink} />
+        {data.metaTags
+          ? data.metaTags.map((tag) => {
+              if (tag.type === "MetaValue") {
+                return <meta name={tag.name} content={tag.value}></meta>;
+              } else if (tag.type === "MetaProperty") {
+                return <meta property={tag.name} content={tag.value} />;
+              }
+            })
+          : null}
+        <link
+          rel="canonical"
+          href={`pariscuratorial.com/${router.locale}${router.pathname}`}
+        />
       </Head>
       <main>
         <Menu />

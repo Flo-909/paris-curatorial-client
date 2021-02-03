@@ -9,6 +9,7 @@ import {
   ArtistImage,
   LangButtonComponent,
   ProjectDescription,
+  ArtistTitle,
 } from "../styles/styles";
 
 const Artists = ({ data }) => {
@@ -37,10 +38,11 @@ const Artists = ({ data }) => {
               {item.artworks.map((el) => (
                 <>
                   <ProjectDate>{el.artworkDate}</ProjectDate>
-                  <ProjectDetail>{el.artworkName}</ProjectDetail>
-                  <ProjectDescription>
-                    {el.artworkDescription}
-                  </ProjectDescription>
+                  <ProjectDetail>
+                    <ArtistTitle>{el.artworkName}</ArtistTitle>
+                    <div>{el.artworkDescription}</div>
+                  </ProjectDetail>
+
                   <ArtistImage
                     src={process.env.NEXT_PUBLIC_BASE_URL + el.artworkImage.url}
                     alt={el.artworkImage.alternativeText}

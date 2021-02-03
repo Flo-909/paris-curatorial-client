@@ -1,41 +1,104 @@
 import { loadGetInitialProps } from "next/dist/next-server/lib/utils";
-import React, { useEffect, useState } from "react";
-import { HomeLogo, PageLayout, AboutBox3 } from "../styles/styles";
+import React, { useEffect, useState, useRef } from "react";
+import {
+  HomeLogo,
+  LogoContainer,
+  PageLayout,
+  HomeBox1,
+  HomeBox2,
+  HomeBox3,
+  HomeItem,
+  More,
+  CircleContainer,
+  Circles,
+} from "../styles/styles";
+import { useRouter } from "next/router";
+import ReactPageScroller from "react-page-scroller";
 
 const Home = ({ data }) => {
-  const [current, setCurrent] = useState(0);
-  const [scrolling, setScrolling] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [pageNumber, setPageNumber] = useState(null);
+  const [currentPage, setCurrentPage] = useState(0);
+  const [content, setContent] = useState([]);
+  const router = useRouter();
+  console.log(router);
 
-  console.log("data", data);
-  console.log("current", current);
-
-  const nextSlide = (e) => {
-    if (!scrolling) {
-      const newCurrent = current + 1;
-      setCurrent(newCurrent);
-      setScrolling(true);
-    }
-  };
+  const Line = (
+    <svg
+      width="60"
+      height="10"
+      xmlns="http://www.w3.org/2000/svg"
+      version="1.1"
+      className="scale-in-left mt-4"
+    >
+      <line
+        x1="50"
+        x2="5"
+        y1="5"
+        y2="5"
+        stroke="#000000"
+        strokeWidth="2"
+        strokeLinecap="butt"
+      />
+    </svg>
+  );
 
   useEffect(() => {
-    window.addEventListener("scroll", (e) => nextSlide(e));
-  });
+    if (router.asPath === "/") setPageNumber(data.homeContent.length);
+  }, []);
 
-  return data ? (
-    <PageLayout>
-      {current === 0 ? (
-        <HomeLogo
-          src={process.env.NEXT_PUBLIC_BASE_URL + data.logo.url}
-          alt={data.logo.alternativeText}
-        />
-      ) : null}
+  const handlePageChange = (number) => {
+    console.log(number);
+    setCurrentPage(number + 1);
+  };
 
-      {data.homeContent.map((item) => {
-        if (item.id === current) {
-          return <AboutBox3 key={item.id}>{item.homePageTitle}</AboutBox3>;
-        }
-      })}
-    </PageLayout>
+  const getPagesNumbers = () => {
+    const pageNumbers = [];
+
+    for (let i = 1; i <= pageNumber; i++) {
+      pageNumbers.push(
+        <Circles
+          key={i}
+          eventKey={i - 1}
+          style={{ background: currentPage === i ? "#4e4e4e" : "" }}
+          onSelect={handlePageChange}
+        ></Circles>
+      );
+    }
+
+    return [...pageNumbers];
+  };
+
+  return data && router.asPath === "/" ? (
+    <div>
+      <CircleContainer>{getPagesNumbers()}</CircleContainer>
+      {/* <HomeItem>
+        <LogoContainer>
+          <HomeLogo
+            src={process.env.NEXT_PUBLIC_BASE_URL + data.logo.url}
+            alt={data.logo.alternativeText}
+          />
+        </LogoContainer>
+      </HomeItem> */}
+      <ReactPageScroller pageOnChange={handlePageChange}>
+        {data.homeContent.map((item, key) => {
+          return (
+            <HomeItem key={item.id} id={item.id}>
+              <HomeBox1>{item.homePageTitle}</HomeBox1>
+              {/* <HomePlacerholder /> */}
+              <HomeBox3>
+                <div>{item.homePageDescription} </div>
+                <More>
+                  {Line}
+                  <a href={item.pageURL}>{item.moreName}</a>{" "}
+                </More>
+              </HomeBox3>
+              <HomeBox2>{item.homePageTitle}</HomeBox2>
+            </HomeItem>
+          );
+        })}
+      </ReactPageScroller>
+    </div>
   ) : null;
 };
 

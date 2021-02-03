@@ -7,6 +7,7 @@ import {
   LangButtonComponent,
   LogoImage,
   LangButton,
+  MenuContainer,
 } from "../styles/styles";
 import { useRouter } from "next/router";
 import Link from "next/link";
@@ -27,7 +28,6 @@ const Menu = () => {
           item.url !== "/privacy-policies" &&
           item.url !== "/terms-and-conditions"
       );
-      console.log(filterMenu);
       setMenu(filterMenu);
     }
     getData();
@@ -61,10 +61,11 @@ const Menu = () => {
   };
 
   return (
-    <div>
+    <MenuContainer>
       <Link href="/">
-        <LogoImage width={150} height={70} src="/logo.png" alt="logo" />
+        <LogoImage width={130} height={50} src="/logo.png" alt="logo" />
       </Link>
+
       <MenuButtonComponent
         style={{ color: menuOpen ? "white" : "black" }}
         onClick={() => setMenuOpen(!menuOpen)}
@@ -72,7 +73,7 @@ const Menu = () => {
         {menuOpen ? "close." : "menu."}
       </MenuButtonComponent>
       {menuOpen && menu ? menuRender() : null}
-    </div>
+    </MenuContainer>
   );
 };
 

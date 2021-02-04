@@ -632,3 +632,26 @@ export const Circles = styled.div`
   background: #c5c5c5;
   z-index: 22;
 `;
+
+const rotate = keyframes`
+  from,  0%, to {
+   opacity: 0.1;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.1;
+  }
+`;
+
+export const LoadingContainer = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+export const LoadingImage = styled(Image)`
+  animation: ${rotate} 2s infinite;
+`;

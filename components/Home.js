@@ -14,6 +14,7 @@ import {
 } from "../styles/styles";
 import { useRouter } from "next/router";
 import ReactPageScroller from "react-page-scroller";
+import Link from "next/link";
 
 const Home = ({ data }) => {
   const [loading, setLoading] = useState(true);
@@ -90,7 +91,7 @@ const Home = ({ data }) => {
                 <div>{item.homePageDescription} </div>
                 <More>
                   {Line}
-                  <a href={item.pageURL}>{item.moreName}</a>{" "}
+                  <Link href={item.pageURL}>{item.moreName}</Link>{" "}
                 </More>
               </HomeBox3>
               <HomeBox2>{item.homePageTitle}</HomeBox2>

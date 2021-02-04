@@ -42,9 +42,11 @@ const Artists = ({ data }) => {
                     <ArtistTitle>{el.artworkName}</ArtistTitle>
                     <div>{el.artworkDescription}</div>
                   </ProjectDetail>
-
                   <ArtistImage
-                    src={process.env.NEXT_PUBLIC_BASE_URL + el.artworkImage.url}
+                    src={
+                      process.env.NEXT_PUBLIC_BASE_URL +
+                      el.artworkImage.imageurl
+                    }
                     alt={el.artworkImage.alternativeText}
                   />
                 </>

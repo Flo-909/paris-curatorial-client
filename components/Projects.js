@@ -45,12 +45,10 @@ const Projects = ({ data }) => {
               {item.projectImages.map((img) => (
                 <>
                   <ProjectLocation>{img.imageCredit}</ProjectLocation>
-                  {img.image.map((elimg) => (
-                    <ProjectImage
-                      src={process.env.NEXT_PUBLIC_BASE_URL + elimg.url}
-                      alt={elimg.alternativeText}
-                    />
-                  ))}
+                  <ProjectImage
+                    src={process.env.NEXT_PUBLIC_BASE_URL + img.image.url}
+                    alt={img.image.alternativeText}
+                  />
                 </>
               ))}
             </>

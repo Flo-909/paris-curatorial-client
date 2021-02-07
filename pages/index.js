@@ -70,7 +70,6 @@ export async function getServerSideProps(context) {
   const { resolvedUrl: path, locale } = context;
   let json = {};
   let menu = {};
-  let error = {};
 
   try {
     const response = await fetch(process.env.NEXT_PUBLIC_BASE_URL + "/homes");

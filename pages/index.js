@@ -13,9 +13,14 @@ const Index = ({ json, path, locale }) => {
   const [data, setData] = useState();
 
   useEffect(() => {
-    if (json) {
+    if (json && locale) {
       const newData = json.find((item) => item.language === locale);
       setData(newData);
+    } else if (json && !locale) {
+      const newData = json.find((item) => item.language === "fr");
+      setData(newData);
+    } else {
+      console.log("error in fetch");
     }
   }, [json]);
 

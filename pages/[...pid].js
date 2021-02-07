@@ -29,9 +29,14 @@ const Pages = ({ json, path, locale, splitURL, errorCode }) => {
     console.log(data);
 
     useEffect(() => {
-      if (json) {
+      if (json && locale) {
         const newData = json.find((item) => item.language === locale);
         setData(newData);
+      } else if (json && !locale) {
+        const newData = json.find((item) => item.language === "fr");
+        setData(newData);
+      } else {
+        console.log("error in fetch");
       }
     }, [json]);
 
@@ -105,11 +110,7 @@ const Pages = ({ json, path, locale, splitURL, errorCode }) => {
           <Footer />
         </footer>
       </div>
-    ) : (
-      <LoadingContainer>
-        <LoadingImage width={150} height={80} src="/logo.png" />
-      </LoadingContainer>
-    );
+    ) : null;
   }
 };
 

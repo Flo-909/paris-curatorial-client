@@ -5,7 +5,7 @@ import Home from "../components/Home";
 import Menu from "../components/Menu";
 import { LoadingImage, LoadingContainer } from "../styles/styles";
 
-const Index = ({ json, path, locale }) => {
+const Index = ({ json, path, locale, menu }) => {
   console.log("json", json);
   console.log("path", path);
   console.log("locale", locale);
@@ -59,7 +59,7 @@ const Index = ({ json, path, locale }) => {
       </Head>
 
       <main>
-        <Menu />
+        <Menu menu={menu} />
         {path === "/" && <Home data={data} />}
       </main>
     </div>
@@ -70,7 +70,16 @@ export async function getServerSideProps(context) {
   const { resolvedUrl: path, locale } = context;
   const response = await fetch(process.env.NEXT_PUBLIC_BASE_URL + "/homes");
   const json = await response.json();
-  return { props: { json, path, locale } };
+
+  const menuResponse = await fetch(process.env.NEXT_PUBLIC_BASE_URL + "/menus");
+  const menuJson = await menuResponse.json();
+  const menuData = menuJson.find((item) => item.language === locale);
+  const menu = menuData.pageMenu.filter(
+    (item) =>
+      item.url !== "/privacy-policies" && item.url !== "/terms-and-conditions"
+  );
+
+  return { props: { json, path, locale, menu } };
 }
 
 export default Index;

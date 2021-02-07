@@ -12,26 +12,10 @@ import {
 import { useRouter } from "next/router";
 import Link from "next/link";
 
-const Menu = () => {
+const Menu = ({ menu }) => {
+  console.log("menu", menu);
   const router = useRouter();
-  const [menu, setMenu] = useState();
   const [menuOpen, setMenuOpen] = useState(false);
-
-  useEffect(() => {
-    async function getData() {
-      const response = await fetch(process.env.NEXT_PUBLIC_BASE_URL + "/menus");
-      const json = await response.json();
-      const data = json.find((item) => item.language === router.locale);
-      const { pageMenu } = data;
-      const filterMenu = pageMenu.filter(
-        (item) =>
-          item.url !== "/privacy-policies" &&
-          item.url !== "/terms-and-conditions"
-      );
-      setMenu(filterMenu);
-    }
-    getData();
-  }, []);
 
   const menuRender = () => {
     if (menu) {

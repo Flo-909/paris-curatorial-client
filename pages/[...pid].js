@@ -12,106 +12,102 @@ import Footer from "../components/Footer";
 import Home from "../components/Home";
 import { LoadingImage, LoadingContainer } from "../styles/styles";
 
-const Pages = ({ json, path, locale, splitURL, errorCode }) => {
-  if (errorCode) {
-    return <h1>error</h1>;
-  } else {
-    console.log("path", path);
-    console.log("locale", locale);
-    console.log("splitURL", splitURL);
+const Pages = ({ json, path, locale, splitURL, menu }) => {
+  console.log("path", path);
+  console.log("locale", locale);
+  console.log("splitURL", splitURL);
 
-    const [data, setData] = useState();
-    const [loading, setLoading] = useState(false);
-    const router = useRouter();
+  const [data, setData] = useState();
+  const [loading, setLoading] = useState(false);
+  const router = useRouter();
 
-    const { pid } = router.query;
-    console.log(data);
-    console.log(data);
+  const { pid } = router.query;
+  console.log(data);
+  console.log(data);
 
-    useEffect(() => {
-      if (json && locale) {
-        const newData = json.find((item) => item.language === locale);
-        setData(newData);
-      } else if (json && !locale) {
-        const newData = json.find((item) => item.language === "fr");
-        setData(newData);
-      } else {
-        console.log("error in fetch");
+  useEffect(() => {
+    if (json && locale) {
+      const newData = json.find((item) => item.language === locale);
+      setData(newData);
+    } else if (json && !locale) {
+      const newData = json.find((item) => item.language === "fr");
+      setData(newData);
+    } else {
+      console.log("error in fetch");
+    }
+  }, [json]);
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
+  const renderContent = () => {
+    if (splitURL)
+      switch (splitURL) {
+        case "/current-projects":
+        case "/past-projects":
+          return <Projects data={data} />;
+          break;
+        case "/artists":
+          return <Artists data={data} />;
+          break;
+        case "/about-grigori-michel":
+        case "/about-paris-curatorial":
+          return <About data={data} />;
+          break;
+        case "/privacy-policies":
+          return <Privacy data={data} />;
+          break;
+        case "/terms-and-conditions":
+          return <Terms data={data} />;
+          break;
+        case "/contact":
+          return <Contact data={data} />;
+          break;
+        default:
+          router.push("/");
+          return (
+            <LoadingContainer>
+              <LoadingImage width={200} height={80} src="/logo.png" />
+            </LoadingContainer>
+          );
       }
-    }, [json]);
+  };
 
-    useEffect(() => {
-      window.scrollTo(0, 0);
-    }, []);
+  return pid && !loading && data && json ? (
+    <div key={Date.now()}>
+      <Head>
+        <title>{data.pageHeadline.toUpperCase()} | Paris Curatorial</title>
+        <link rel="icon" href="/logo.png" />
+        <meta
+          name="viewport"
+          content="width=device-width, initial-scale=1.0"
+        ></meta>
+        {data.metaTags
+          ? data.metaTags.map((tag) => {
+              if (tag.type === "MetaValue") {
+                return <meta name={tag.name} content={tag.value}></meta>;
+              } else if (tag.type === "MetaProperty") {
+                return <meta property={tag.name} content={tag.value} />;
+              }
+            })
+          : null}
+        <link
+          rel="canonical"
+          href={`pariscuratorial.com/${router.locale}${router.pathname}`}
+        />
+      </Head>
+      <main>
+        <Menu menu={menu} />
+        {renderContent()}
+        <Home />
+      </main>
 
-    const renderContent = () => {
-      if (splitURL)
-        switch (splitURL) {
-          case "/current-projects":
-          case "/past-projects":
-            return <Projects data={data} />;
-            break;
-          case "/artists":
-            return <Artists data={data} />;
-            break;
-          case "/about-grigori-michel":
-          case "/about-paris-curatorial":
-            return <About data={data} />;
-            break;
-          case "/privacy-policies":
-            return <Privacy data={data} />;
-            break;
-          case "/terms-and-conditions":
-            return <Terms data={data} />;
-            break;
-          case "/contact":
-            return <Contact data={data} />;
-            break;
-          default:
-            router.push("/");
-            return (
-              <LoadingContainer>
-                <LoadingImage width={200} height={80} src="/logo.png" />
-              </LoadingContainer>
-            );
-        }
-    };
-
-    return pid && !loading && data && json ? (
-      <div key={Date.now()}>
-        <Head>
-          <title>{data.pageHeadline.toUpperCase()} | Paris Curatorial</title>
-          <link rel="icon" href="/logo.png" />
-          <meta
-            name="viewport"
-            content="width=device-width, initial-scale=1.0"
-          ></meta>
-          {data.metaTags
-            ? data.metaTags.map((tag) => {
-                if (tag.type === "MetaValue") {
-                  return <meta name={tag.name} content={tag.value}></meta>;
-                } else if (tag.type === "MetaProperty") {
-                  return <meta property={tag.name} content={tag.value} />;
-                }
-              })
-            : null}
-          <link
-            rel="canonical"
-            href={`pariscuratorial.com/${router.locale}${router.pathname}`}
-          />
-        </Head>
-        <main>
-          <Menu />
-          {renderContent()}
-          <Home />
-        </main>
-
-        <footer>
-          <Footer />
-        </footer>
-      </div>
-    ) : null;
-  }
+      <footer>
+        <Footer />
+      </footer>
+    </div>
+  ) : null;
 };
 
 export default Pages;
@@ -128,7 +124,16 @@ export const getServerSideProps = async (context) => {
     const response = await fetch(process.env.NEXT_PUBLIC_BASE_URL + "/homes");
     json = await response.json();
   }
+
+  const menuResponse = await fetch(process.env.NEXT_PUBLIC_BASE_URL + "/menus");
+  const menuJson = await menuResponse.json();
+  const menuData = menuJson.find((item) => item.language === locale);
+  const menu = menuData.pageMenu.filter(
+    (item) =>
+      item.url !== "/privacy-policies" && item.url !== "/terms-and-conditions"
+  );
+
   return {
-    props: { path, json, locale, splitURL },
+    props: { path, json, locale, splitURL, menu },
   };
 };

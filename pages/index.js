@@ -68,16 +68,26 @@ const Index = ({ json, path, locale, menu }) => {
 
 export async function getServerSideProps(context) {
   const { resolvedUrl: path, locale } = context;
-  const response = await fetch(process.env.NEXT_PUBLIC_BASE_URL + "/homes");
-  const json = await response.json();
+  let json = {};
+  let menu = {};
+  let error = {};
 
-  const menuResponse = await fetch(process.env.NEXT_PUBLIC_BASE_URL + "/menus");
-  const menuJson = await menuResponse.json();
-  const menuData = menuJson.find((item) => item.language === locale);
-  const menu = menuData.pageMenu.filter(
-    (item) =>
-      item.url !== "/privacy-policies" && item.url !== "/terms-and-conditions"
-  );
+  try {
+    const response = await fetch(process.env.NEXT_PUBLIC_BASE_URL + "/homes");
+    json = await response.json();
+    const menuResponse = await fetch(
+      process.env.NEXT_PUBLIC_BASE_URL + "/menus"
+    );
+    const menuJson = await menuResponse.json();
+    const menuData = menuJson.find((item) => item.language === locale);
+    menu = menuData.pageMenu.filter(
+      (item) =>
+        item.url !== "/privacy-policies" && item.url !== "/terms-and-conditions"
+    );
+  } catch (error) {
+    const response = await fetch(process.env.NEXT_PUBLIC_BASE_URL + "/homes");
+    json = await response.json();
+  }
 
   return { props: { json, path, locale, menu } };
 }

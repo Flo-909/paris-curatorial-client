@@ -115,23 +115,25 @@ export default Pages;
 export const getServerSideProps = async (context) => {
   const { resolvedUrl: path, locale } = context;
   let json = {};
+  let menu = {};
   const splitURL = path.split("?")[0];
   const fetchUrl = splitURL.slice(-1) === "s" ? splitURL : splitURL + "s";
   try {
     const response = await fetch(process.env.NEXT_PUBLIC_BASE_URL + fetchUrl);
     json = await response.json();
+    const menuResponse = await fetch(
+      process.env.NEXT_PUBLIC_BASE_URL + "/menus"
+    );
+    const menuJson = await menuResponse.json();
+    const menuData = menuJson.find((item) => item.language === locale);
+    menu = menuData.pageMenu.filter(
+      (item) =>
+        item.url !== "/privacy-policies" && item.url !== "/terms-and-conditions"
+    );
   } catch (error) {
     const response = await fetch(process.env.NEXT_PUBLIC_BASE_URL + "/homes");
     json = await response.json();
   }
-
-  const menuResponse = await fetch(process.env.NEXT_PUBLIC_BASE_URL + "/menus");
-  const menuJson = await menuResponse.json();
-  const menuData = menuJson.find((item) => item.language === locale);
-  const menu = menuData.pageMenu.filter(
-    (item) =>
-      item.url !== "/privacy-policies" && item.url !== "/terms-and-conditions"
-  );
 
   return {
     props: { path, json, locale, splitURL, menu },

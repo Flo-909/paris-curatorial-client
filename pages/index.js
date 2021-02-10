@@ -4,11 +4,14 @@ import React, { useEffect, useState } from "react";
 import Home from "../components/Home";
 import Menu from "../components/Menu";
 import { LoadingImage, LoadingContainer } from "../styles/styles";
+import { useRouter } from "next/router";
 
 const Index = ({ json, path, locale, menu }) => {
   console.log("json", json);
   console.log("path", path);
   console.log("locale", locale);
+  const router = useRouter();
+  console.log("router", router);
 
   const [data, setData] = useState();
 

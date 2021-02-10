@@ -12,11 +12,12 @@ import Footer from "../components/Footer";
 import Home from "../components/Home";
 import { LoadingImage, LoadingContainer } from "../styles/styles";
 
-const Pages = ({ json, path, locale, splitURL, menu, footer }) => {
+const Pages = ({ json, path, locale, splitURL, menu, footer, error }) => {
   console.log("path", path);
   console.log("locale", locale);
   console.log("splitURL", splitURL);
   console.log("footer", footer);
+  console.log("error", error);
 
   const [data, setData] = useState();
   const [loading, setLoading] = useState(false);
@@ -129,7 +130,7 @@ export const getServerSideProps = async (context) => {
       "https://new-pc-backend.herokuapp.com" + "/menus"
     );
     const menuJson = await menuResponse.json();
-    const menuData = menuJson.find((item) => item.language === locale);
+    const menuData = menuJson.find((item) => item.language === locale || "fr");
     menu = menuData.pageMenu.filter(
       (item) =>
         item.url !== "/privacy-policies" && item.url !== "/terms-and-conditions"
@@ -138,8 +139,9 @@ export const getServerSideProps = async (context) => {
       "https://new-pc-backend.herokuapp.com" + "/contacts"
     );
     const jsonContact = await resContact.json();
-    footer = jsonContact.find((item) => item.language === locale);
+    footer = jsonContact.find((item) => item.language === locale || "fr");
   } catch (error) {
+    console.log("error", error);
     const response = await fetch(
       "https://new-pc-backend.herokuapp.com" + "/homes"
     );
@@ -161,6 +163,6 @@ export const getServerSideProps = async (context) => {
   }
 
   return {
-    props: { path, json, locale, splitURL, menu, footer },
+    props: { path, json, locale, splitURL, menu, footer, error },
   };
 };

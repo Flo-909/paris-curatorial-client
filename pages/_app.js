@@ -4,7 +4,7 @@ import Error from "next/error";
 function MyApp({ Component, pageProps }) {
   console.log("pageProps", pageProps);
   if (pageProps.statusCode) {
-    console.log("error", pageProps.statusCode, pageProps.message);
+    console.log("error ==>", pageProps.statusCode, pageProps);
     return (
       <Error statusCode={pageProps.statusCode} title={pageProps.message} />
     );

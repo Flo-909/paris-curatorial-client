@@ -3,13 +3,10 @@ import Error from "next/error";
 
 function MyApp({ Component, pageProps }) {
   console.log("pageProps", pageProps);
-  if (pageProps.error) {
-    console.log("error", pageProps.error);
+  if (pageProps.statusCode) {
+    console.log("error", pageProps.statusCode, pageProps.message);
     return (
-      <Error
-        statusCode={pageProps.error.statusCode}
-        title={pageProps.error.message}
-      />
+      <Error statusCode={pageProps.statusCode} title={pageProps.message} />
     );
   } else {
     return <Component {...pageProps} />;

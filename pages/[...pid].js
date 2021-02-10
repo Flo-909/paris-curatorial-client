@@ -130,7 +130,7 @@ export const getServerSideProps = async (context) => {
       "https://new-pc-backend.herokuapp.com" + "/menus"
     );
     const menuJson = await menuResponse.json();
-    const menuData = menuJson.find((item) => item.language === locale || "fr");
+    const menuData = menuJson.find((item) => item.language === locale);
     menu = menuData.pageMenu.filter(
       (item) =>
         item.url !== "/privacy-policies" && item.url !== "/terms-and-conditions"
@@ -139,11 +139,11 @@ export const getServerSideProps = async (context) => {
       "https://new-pc-backend.herokuapp.com" + "/contacts"
     );
     const jsonContact = await resContact.json();
-    footer = jsonContact.find((item) => item.language === locale || "fr");
+    footer = jsonContact.find((item) => item.language === locale);
   } catch (error) {
     console.log("error", error);
     const response = await fetch(
-      "https://new-pc-backend.herokuapp.com" + "/homes"
+      "https://new-pc-backend.herokuapp.com" + fetchUrl
     );
     json = await response.json();
     const menuResponse = await fetch(

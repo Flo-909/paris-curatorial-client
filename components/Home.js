@@ -76,7 +76,7 @@ const Home = ({ data }) => {
       {/* <HomeItem>
         <LogoContainer>
           <HomeLogo
-            src={process.env.NEXT_PUBLIC_BASE_URL + data.logo.url}
+            src={"https://new-pc-backend.herokuapp.com" + data.logo.url}
             alt={data.logo.alternativeText}
           />
         </LogoContainer>

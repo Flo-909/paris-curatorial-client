@@ -46,7 +46,7 @@ const Projects = ({ data }) => {
                 <>
                   <ProjectLocation>{img.imageCredit}</ProjectLocation>
                   <ProjectImage
-                    src={process.env.NEXT_PUBLIC_BASE_URL + img.image.url}
+                    src={img.image.url}
                     alt={img.image.alternativeText}
                   />
                 </>

@@ -10,8 +10,6 @@ const Index = ({ json, path, locale, menu }) => {
   console.log("json", json);
   console.log("path", path);
   console.log("locale", locale);
-  const router = useRouter();
-  console.log("router", router);
 
   const [data, setData] = useState();
 

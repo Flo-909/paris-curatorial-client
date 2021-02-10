@@ -20,7 +20,6 @@ const Pages = ({ json, path, locale, splitURL, menu, footer }) => {
   const [data, setData] = useState();
   const [loading, setLoading] = useState(false);
   const router = useRouter();
-  console.log("router", router);
 
   const { pid } = router.query;
   console.log(data);

@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { LoadingImage, LoadingContainer } from "../styles/styles";
 
-function ErrorPage({ statusCode, title }) {
+function Error({ statusCode }) {
   useEffect(() => {
     setTimeout(() => router.push("/"), 3000);
   }, []);
@@ -13,7 +13,9 @@ function ErrorPage({ statusCode, title }) {
         home.
       </h1>
       <p>
-        {statusCode ? statusCode : ""} {title ? title : ""}
+        {statusCode
+          ? `An error ${statusCode} occurred on server`
+          : "An error occurred on client"}
       </p>
       <LoadingContainer>
         <LoadingImage width={200} height={80} src="/logo.png" />
@@ -22,4 +24,9 @@ function ErrorPage({ statusCode, title }) {
   );
 }
 
-export default ErrorPage;
+Error.getInitialProps = ({ res, err }) => {
+  const statusCode = res ? res.statusCode : err ? err.statusCode : 404;
+  return { statusCode };
+};
+
+export default Error;

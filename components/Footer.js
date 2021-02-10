@@ -11,40 +11,23 @@ import {
 import { Router } from "next/router";
 import Link from "next/link";
 
-const Footer = () => {
-  const [contact, setContact] = useState();
-  const [menu, setMenu] = useState();
-
-  useEffect(() => {
-    async function getData() {
-      const resMenu = await fetch(process.env.NEXT_PUBLIC_BASE_URL + "/menus");
-      const resContact = await fetch(
-        process.env.NEXT_PUBLIC_BASE_URL + "/contacts"
-      );
-      const jsonMenu = await resMenu.json();
-      const jsonContact = await resContact.json();
-      setContact(jsonContact[0]);
-      setMenu(jsonMenu[0].pageMenu);
-    }
-    getData();
-  }, []);
-
-  console.log(contact);
+const Footer = ({ menu, footer }) => {
+  console.log("in footer, menu", footer, menu);
 
   return (
     <FooterStyle>
-      {contact ? (
+      {footer ? (
         <div>
           <FooterLink>
-            <a href={`mailto:${contact.email}`}>{contact.email}</a>
+            <a href={`mailto:${footer.email}`}>{footer.email}</a>
           </FooterLink>
           <FooterLink>
-            <a href={`tel:${contact.phoneNumber}`}>{contact.phoneNumber}</a>
+            <a href={`tel:${footer.phoneNumber}`}>{footer.phoneNumber}</a>
           </FooterLink>
-          {contact.address1 && <FooterLink>{contact.address1}</FooterLink>}
-          {contact.address2 && <FooterLink>{contact.address2}</FooterLink>}
-          {contact.address3 && <FooterLink>{contact.address3}</FooterLink>}
-          {contact.address4 && <FooterLink>{contact.address4}</FooterLink>}
+          {footer.address1 && <FooterLink>{footer.address1}</FooterLink>}
+          {footer.address2 && <FooterLink>{footer.address2}</FooterLink>}
+          {footer.address3 && <FooterLink>{footer.address3}</FooterLink>}
+          {footer.address4 && <FooterLink>{footer.address4}</FooterLink>}
         </div>
       ) : null}
 

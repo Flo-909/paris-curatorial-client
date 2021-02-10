@@ -12,17 +12,17 @@ import Footer from "../components/Footer";
 import Home from "../components/Home";
 import { LoadingImage, LoadingContainer } from "../styles/styles";
 
-const Pages = ({ json, path, locale, splitURL, menu }) => {
+const Pages = ({ json, path, locale, splitURL, menu, footer }) => {
   console.log("path", path);
   console.log("locale", locale);
   console.log("splitURL", splitURL);
+  console.log("footer", footer);
 
   const [data, setData] = useState();
   const [loading, setLoading] = useState(false);
   const router = useRouter();
 
   const { pid } = router.query;
-  console.log(data);
   console.log(data);
 
   useEffect(() => {
@@ -104,7 +104,7 @@ const Pages = ({ json, path, locale, splitURL, menu }) => {
       </main>
 
       <footer>
-        <Footer />
+        <Footer menu={menu} footer={footer} />
       </footer>
     </div>
   ) : null;
@@ -116,6 +116,8 @@ export const getServerSideProps = async (context) => {
   const { resolvedUrl: path, locale } = context;
   let json = {};
   let menu = {};
+  let footer = {};
+
   const splitURL = path.split("?")[0];
   const fetchUrl = splitURL.slice(-1) === "s" ? splitURL : splitURL + "s";
   try {
@@ -132,6 +134,11 @@ export const getServerSideProps = async (context) => {
       (item) =>
         item.url !== "/privacy-policies" && item.url !== "/terms-and-conditions"
     );
+    const resContact = await fetch(
+      "https://new-pc-backend.herokuapp.com" + "/contacts"
+    );
+    const jsonContact = await resContact.json();
+    footer = jsonContact.find((item) => item.language === locale);
   } catch (error) {
     const response = await fetch(
       "https://new-pc-backend.herokuapp.com" + "/homes"
@@ -141,14 +148,19 @@ export const getServerSideProps = async (context) => {
       "https://new-pc-backend.herokuapp.com" + "/menus"
     );
     const menuJson = await menuResponse.json();
-    const menuData = menuJson.find((item) => item.language === locale);
+    const menuData = menuJson.find((item) => item.language === "fr");
     menu = menuData.pageMenu.filter(
       (item) =>
         item.url !== "/privacy-policies" && item.url !== "/terms-and-conditions"
     );
+    const resContact = await fetch(
+      "https://new-pc-backend.herokuapp.com" + "/contacts"
+    );
+    const jsonContact = await resContact.json();
+    footer = jsonContact.find((item) => item.language === "fr");
   }
 
   return {
-    props: { path, json, locale, splitURL, menu },
+    props: { path, json, locale, splitURL, menu, footer },
   };
 };

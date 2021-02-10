@@ -12,12 +12,10 @@ import Footer from "../components/Footer";
 import Home from "../components/Home";
 import { LoadingImage, LoadingContainer } from "../styles/styles";
 
-const Pages = ({ json, path, locale, splitURL, menu, footer, error }) => {
+const Pages = ({ json, path, locale, splitURL, menu, footer }) => {
   console.log("path", path);
   console.log("locale", locale);
   console.log("splitURL", splitURL);
-  console.log("footer", footer);
-  console.log("error", error);
 
   const [data, setData] = useState();
   const [loading, setLoading] = useState(false);
@@ -121,48 +119,55 @@ export const getServerSideProps = async (context) => {
 
   const splitURL = path.split("?")[0];
   const fetchUrl = splitURL.slice(-1) === "s" ? splitURL : splitURL + "s";
-  try {
-    const response = await fetch(
-      "https://new-pc-backend.herokuapp.com" + fetchUrl
-    );
-    json = await response.json();
-    const menuResponse = await fetch(
-      "https://new-pc-backend.herokuapp.com" + "/menus"
-    );
-    const menuJson = await menuResponse.json();
-    const menuData = menuJson.find((item) => item.language === locale);
-    menu = menuData.pageMenu.filter(
-      (item) =>
-        item.url !== "/privacy-policies" && item.url !== "/terms-and-conditions"
-    );
-    const resContact = await fetch(
-      "https://new-pc-backend.herokuapp.com" + "/contacts"
-    );
-    const jsonContact = await resContact.json();
-    footer = jsonContact.find((item) => item.language === locale);
-  } catch (error) {
-    console.log("error", error);
-    const response = await fetch(
-      "https://new-pc-backend.herokuapp.com" + fetchUrl
-    );
-    json = await response.json();
-    const menuResponse = await fetch(
-      "https://new-pc-backend.herokuapp.com" + "/menus"
-    );
-    const menuJson = await menuResponse.json();
-    const menuData = menuJson.find((item) => item.language === "fr");
-    menu = menuData.pageMenu.filter(
-      (item) =>
-        item.url !== "/privacy-policies" && item.url !== "/terms-and-conditions"
-    );
-    const resContact = await fetch(
-      "https://new-pc-backend.herokuapp.com" + "/contacts"
-    );
-    const jsonContact = await resContact.json();
-    footer = jsonContact.find((item) => item.language === "fr");
-  }
+
+  const response = await fetch(
+    "https://new-pc-backend.herokuapp.com" + fetchUrl
+  );
+  json = await response.json();
+  const menuResponse = await fetch(
+    "https://new-pc-backend.herokuapp.com" + "/menus"
+  );
+  const menuJson = await menuResponse.json();
+  const menuData = locale
+    ? menuJson.find((item) => item.language === locale)
+    : menuJson.find((item) => item.language === "fr");
+  menu = menuData.pageMenu.filter(
+    (item) =>
+      item.url !== "/privacy-policies" && item.url !== "/terms-and-conditions"
+  );
+  const resContact = await fetch(
+    "https://new-pc-backend.herokuapp.com" + "/contacts"
+  );
+  const jsonContact = await resContact.json();
+  footer = locale
+    ? jsonContact.find((item) => item.language === locale)
+    : jsonContact.find((item) => item.language === "fr");
+
+  // try {
+
+  // } catch (error) {
+  //   console.log("error", error);
+  //   const response = await fetch(
+  //     "https://new-pc-backend.herokuapp.com" + fetchUrl
+  //   );
+  //   json = await response.json();
+  //   const menuResponse = await fetch(
+  //     "https://new-pc-backend.herokuapp.com" + "/menus"
+  //   );
+  //   const menuJson = await menuResponse.json();
+  //   const menuData = menuJson.find((item) => item.language === "fr");
+  //   menu = menuData.pageMenu.filter(
+  //     (item) =>
+  //       item.url !== "/privacy-policies" && item.url !== "/terms-and-conditions"
+  //   );
+  //   const resContact = await fetch(
+  //     "https://new-pc-backend.herokuapp.com" + "/contacts"
+  //   );
+  //   const jsonContact = await resContact.json();
+  //   footer = jsonContact.find((item) => item.language === "fr");
+  // }
 
   return {
-    props: { path, json, locale, splitURL, menu, footer, error },
+    props: { path, json, locale, splitURL, menu, footer },
   };
 };

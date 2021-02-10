@@ -43,7 +43,7 @@ const Artists = ({ data }) => {
                     <div>{el.artworkDescription}</div>
                   </ProjectDetail>
                   <ArtistImage
-                    src={el.artworkImage.imageurl}
+                    src={el.artworkImage.url}
                     alt={el.artworkImage.alternativeText}
                   />
                 </>

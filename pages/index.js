@@ -71,35 +71,39 @@ export async function getServerSideProps(context) {
   let json = {};
   let menu = {};
 
-  try {
-    const response = await fetch(
-      "https://new-pc-backend.herokuapp.com" + "/homes"
-    );
-    json = await response.json();
-    const menuResponse = await fetch(
-      "https://new-pc-backend.herokuapp.com" + "/menus"
-    );
-    const menuJson = await menuResponse.json();
-    const menuData = menuJson.find((item) => item.language === locale);
-    menu = menuData.pageMenu.filter(
-      (item) =>
-        item.url !== "/privacy-policies" && item.url !== "/terms-and-conditions"
-    );
-  } catch (error) {
-    const response = await fetch(
-      "https://new-pc-backend.herokuapp.com" + "/homes"
-    );
-    json = await response.json();
-    const menuResponse = await fetch(
-      "https://new-pc-backend.herokuapp.com" + "/menus"
-    );
-    const menuJson = await menuResponse.json();
-    const menuData = menuJson.find((item) => item.language === locale);
-    menu = menuData.pageMenu.filter(
-      (item) =>
-        item.url !== "/privacy-policies" && item.url !== "/terms-and-conditions"
-    );
-  }
+  const response = await fetch(
+    "https://new-pc-backend.herokuapp.com" + "/homes"
+  );
+  json = await response.json();
+  const menuResponse = await fetch(
+    "https://new-pc-backend.herokuapp.com" + "/menus"
+  );
+  const menuJson = await menuResponse.json();
+  const menuData = locale
+    ? menuJson.find((item) => item.language === locale)
+    : menuJson.find((item) => item.language === "fr");
+  menu = menuData.pageMenu.filter(
+    (item) =>
+      item.url !== "/privacy-policies" && item.url !== "/terms-and-conditions"
+  );
+
+  // try {
+
+  // } catch (error) {
+  //   const response = await fetch(
+  //     "https://new-pc-backend.herokuapp.com" + "/homes"
+  //   );
+  //   json = await response.json();
+  //   const menuResponse = await fetch(
+  //     "https://new-pc-backend.herokuapp.com" + "/menus"
+  //   );
+  //   const menuJson = await menuResponse.json();
+  //   const menuData = menuJson.find((item) => item.language === "fr");
+  //   menu = menuData.pageMenu.filter(
+  //     (item) =>
+  //       item.url !== "/privacy-policies" && item.url !== "/terms-and-conditions"
+  //   );
+  // }
 
   return { props: { json, path, locale, menu } };
 }

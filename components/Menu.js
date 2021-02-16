@@ -20,20 +20,24 @@ const Menu = ({ menu }) => {
     if (menu) {
       return (
         <MenuPageLayout>
-          {menu.map((item) => (
-            <PageMenu key={item.name}>
-              <Link href={item.url}>{item.name}</Link>
-            </PageMenu>
-          ))}
+          {menu
+            ? menu.map((item) => (
+                <PageMenu key={item.name && item.name}>
+                  <Link href={item.url && item.url}>
+                    {item.name && item.name}
+                  </Link>
+                </PageMenu>
+              ))
+            : null}
           <LangButtonComponent>
             <LangButton>
-              <Link href={router.asPath} locale="en">
+              <Link href={router.asPath && router.asPath} locale="en">
                 EN
               </Link>
             </LangButton>
             <LangButton> | </LangButton>
             <LangButton>
-              <Link href={router.asPath} locale="fr">
+              <Link href={router.asPath && router.asPath} locale="fr">
                 FR
               </Link>
             </LangButton>

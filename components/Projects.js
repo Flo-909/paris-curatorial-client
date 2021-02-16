@@ -9,12 +9,14 @@ import {
   ProjectLocation,
   ProjectImage,
   LangButtonComponent,
+  AboutBox2,
 } from "../styles/styles";
 import Image from "next/image";
 
 const Projects = ({ data }) => {
   const {
     pageHeadline,
+    pageSubheadline,
     projects,
     projectHeadline,
     projectDescription,
@@ -29,28 +31,39 @@ const Projects = ({ data }) => {
   return (
     <PageLayout>
       <PageHeadline>
-        <h1>{pageHeadline}</h1>
+        <h1>{pageHeadline && pageHeadline}</h1>
       </PageHeadline>
+      <AboutBox2>
+        <p>{pageSubheadline && pageSubheadline}</p>
+      </AboutBox2>
       {projects
         ? projects.map((item) => (
             <>
               <ProjectHeadline>
-                <h4>{item.projectHeadline}</h4>
+                <h4>{item.projectHeadline && item.projectHeadline}</h4>
               </ProjectHeadline>
+              {item.projectImages
+                ? item.projectImages.map((img) => (
+                    <>
+                      <ProjectImage
+                        src={img.image.url && img.image.url}
+                        alt={
+                          img.image.alternativeText && img.image.alternativeTex
+                        }
+                      />
+                      <ProjectLocation>
+                        {img.imageCredit && img.imageCredit}
+                      </ProjectLocation>
+                    </>
+                  ))
+                : null}
               <ProjectSubheadline>
-                <p>{item.projectDescription}</p>
+                <p>{item.projectDescription && item.projectDescription}</p>
               </ProjectSubheadline>
-              <ProjectDate>{item.projectDate}</ProjectDate>
-              <ProjectLocation>{item.projectLocation}</ProjectLocation>
-              {item.projectImages.map((img) => (
-                <>
-                  <ProjectLocation>{img.imageCredit}</ProjectLocation>
-                  <ProjectImage
-                    src={img.image.url}
-                    alt={img.image.alternativeText}
-                  />
-                </>
-              ))}
+              <ProjectDate>{item.projectDate && item.projectDate}</ProjectDate>
+              <ProjectLocation>
+                {item.projectLocation && item.projectLocation}
+              </ProjectLocation>
             </>
           ))
         : null}

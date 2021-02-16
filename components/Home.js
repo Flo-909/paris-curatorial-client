@@ -82,22 +82,30 @@ const Home = ({ data }) => {
         </LogoContainer>
       </HomeItem> */}
       <ReactPageScroller pageOnChange={handlePageChange}>
-        {data.homeContent.map((item, key) => {
-          return (
-            <HomeItem key={item.id} id={item.id}>
-              <HomeBox1>{item.homePageTitle}</HomeBox1>
-              {/* <HomePlacerholder /> */}
-              <HomeBox3>
-                <div>{item.homePageDescription} </div>
-                <More>
-                  {Line}
-                  <Link href={item.pageURL}>{item.moreName}</Link>{" "}
-                </More>
-              </HomeBox3>
-              <HomeBox2>{item.homePageTitle}</HomeBox2>
-            </HomeItem>
-          );
-        })}
+        {data.homeContent
+          ? data.homeContent.map((item, key) => {
+              return (
+                <HomeItem key={item.id && item.id} id={item.id && item.id}>
+                  <HomeBox1>{item.homePageTitle}</HomeBox1>
+                  {/* <HomePlacerholder /> */}
+                  <HomeBox3>
+                    <div>
+                      {item.homePageDescription && item.homePageDescription}{" "}
+                    </div>
+                    <More>
+                      {Line}
+                      <Link href={item.pageURL && item.pageURL}>
+                        {item.moreName && item.moreName}
+                      </Link>{" "}
+                    </More>
+                  </HomeBox3>
+                  <HomeBox2>
+                    {item.homePageTitle && item.homePageTitle}
+                  </HomeBox2>
+                </HomeItem>
+              );
+            })
+          : null}
       </ReactPageScroller>
     </div>
   ) : null;

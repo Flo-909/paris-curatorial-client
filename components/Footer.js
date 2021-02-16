@@ -19,10 +19,14 @@ const Footer = ({ menu, footer }) => {
       {footer ? (
         <div>
           <FooterLink>
-            <a href={`mailto:${footer.email}`}>{footer.email}</a>
+            <a href={`mailto:${footer.email}`}>
+              {footer.email && footer.email}
+            </a>
           </FooterLink>
           <FooterLink>
-            <a href={`tel:${footer.phoneNumber}`}>{footer.phoneNumber}</a>
+            <a href={`tel:${footer.phoneNumber}`}>
+              {footer.phoneNumber && footer.phoneNumber}
+            </a>
           </FooterLink>
           {footer.address1 && <FooterLink>{footer.address1}</FooterLink>}
           {footer.address2 && <FooterLink>{footer.address2}</FooterLink>}
@@ -35,7 +39,7 @@ const Footer = ({ menu, footer }) => {
         <FooterContainer>
           {menu.map((item) => (
             <FooterLink>
-              <Link href={item.url}>{item.name}</Link>
+              <Link href={item.url && item.url}>{item.name && item.name}</Link>
             </FooterLink>
           ))}
         </FooterContainer>

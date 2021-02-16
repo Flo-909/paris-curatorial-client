@@ -567,6 +567,7 @@ export const HomeBox2 = styled.div`
     position: absolute;
     bottom: 20px;
     left: 1px;
+    z-index: -1;
   }
   @media (min-width: ${breakpoints.lg}) {
     line-height: 0.9em;
@@ -578,6 +579,7 @@ export const HomeBox2 = styled.div`
     position: absolute;
     bottom: 50px;
     left: 1px;
+    z-index: -1;
   }
 `;
 

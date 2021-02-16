@@ -26,47 +26,58 @@ const About = ({ data }) => {
   return data ? (
     <PageLayout>
       <PageHeadline>
-        <h1>{pageHeadline}</h1>
+        <h1>{pageHeadline && pageHeadline}</h1>
       </PageHeadline>
       <AboutBox2>
-        <p>{pageSubheadline}</p>
+        <p>{pageSubheadline && pageSubheadline}</p>
       </AboutBox2>
       {textContents
         ? textContents.map((item) => (
             <>
               <AboutBox3>{item.contentHeadline}</AboutBox3>
-              {item.contents.map((el) => (
-                <>
-                  <AboutBox4>{el.contentSubheadline}</AboutBox4>
-                  <AboutBox5>
-                    {el.contentDescription}
-                    <p></p>
-                    {el.linkName && el.linkURL ? (
-                      <a href={el.linkURL} target="_blank">
-                        {el.linkName}
-                      </a>
-                    ) : null}
-                  </AboutBox5>
-                </>
-              ))}
+              {item.contents
+                ? item.contents.map((el) => (
+                    <>
+                      <AboutBox4>
+                        {el.contentSubheadline && el.contentSubheadline}
+                      </AboutBox4>
+                      <AboutBox5>
+                        {el.contentDescription && el.contentDescription}
+                        <p></p>
+                        {el.linkName && el.linkURL ? (
+                          <a href={el.linkURL && el.linkURL} target="_blank">
+                            {el.linkName && el.linkName}
+                          </a>
+                        ) : null}
+                      </AboutBox5>
+                    </>
+                  ))
+                : null}
             </>
           ))
         : null}
       {socialMedias
         ? socialMedias.map((media) => (
             <>
-              <AboutBox3>{media.mediaHeadline}</AboutBox3>
-              {media.medias.map((elmedia) => (
-                <>
-                  <AboutBox4>
-                    {elmedia.mediaName && elmedia.mediaURL ? (
-                      <a href={elmedia.mediaURL} target="_blank">
-                        {elmedia.mediaName}
-                      </a>
-                    ) : null}
-                  </AboutBox4>
-                </>
-              ))}
+              <AboutBox3>
+                {media.mediaHeadline && media.mediaHeadline}
+              </AboutBox3>
+              {media.medias
+                ? media.medias.map((elmedia) => (
+                    <>
+                      <AboutBox4>
+                        {elmedia.mediaName && elmedia.mediaURL ? (
+                          <a
+                            href={elmedia.mediaURL && elmedia.mediaURL}
+                            target="_blank"
+                          >
+                            {elmedia.mediaName && elmedia.mediaName}
+                          </a>
+                        ) : null}
+                      </AboutBox4>
+                    </>
+                  ))
+                : null}
             </>
           ))
         : null}

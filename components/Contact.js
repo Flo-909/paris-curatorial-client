@@ -12,14 +12,14 @@ const Contact = ({ data }) => {
   return (
     <PageLayout>
       <PageHeadline>
-        <h1>{pageHeadline}</h1>
+        <h1>{pageHeadline && pageHeadline}</h1>
       </PageHeadline>
       <ContactMenu>
-        {address}
+        {address && address}
         <p></p>
-        {email}
+        {email && email}
         <p></p>
-        {phoneNumber}
+        {phoneNumber && phoneNumber}
       </ContactMenu>
     </PageLayout>
   );

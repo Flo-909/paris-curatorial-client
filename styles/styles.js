@@ -657,3 +657,14 @@ export const LoadingContainer = styled.div`
 export const LoadingImage = styled(Image)`
   animation: ${rotate} 2s infinite;
 `;
+
+export const ErrorContainer = styled.div`
+  text-align: center;
+`;
+
+export const ErrorButton = styled(Link)`
+  background: black;
+  color: white;
+  border-radius: 20px;
+  padding: 10px 30px;
+`;

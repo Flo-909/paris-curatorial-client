@@ -1,5 +1,10 @@
 import React, { useEffect } from "react";
-import { LoadingImage, LoadingContainer } from "../styles/styles";
+import {
+  LoadingImage,
+  LoadingContainer,
+  ErrorContainer,
+  ErrorButton,
+} from "../styles/styles";
 import Link from "next/link";
 
 function Error({ statusCode }) {
@@ -8,7 +13,7 @@ function Error({ statusCode }) {
   }, []);
 
   return (
-    <div>
+    <ErrorContainer>
       <h1>
         This page is not available. You will be redirected automatically to
         home.
@@ -18,11 +23,11 @@ function Error({ statusCode }) {
           ? `An error ${statusCode} occurred on server`
           : "An error occurred on client"}
       </p>
-      <Link href="/"> Continue</Link>
+      <ErrorButton href="/"> Click to Continue</ErrorButton>
       <LoadingContainer>
         <LoadingImage width={200} height={80} src="/logo.png" />
       </LoadingContainer>
-    </div>
+    </ErrorContainer>
   );
 }
 

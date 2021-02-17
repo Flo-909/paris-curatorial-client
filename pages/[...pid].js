@@ -120,10 +120,15 @@ export const getServerSideProps = async (context) => {
   const splitURL = path.split("?")[0];
   const fetchUrl = splitURL.slice(-1) === "s" ? splitURL : splitURL + "s";
 
-  const response = await fetch(
-    "https://new-pc-backend.herokuapp.com" + fetchUrl
-  );
-  json = await response.json();
+  try {
+    const response = await fetch(
+      "https://new-pc-backend.herokuapp.com" + fetchUrl
+    );
+    json = await response.json();
+  } catch (error) {
+    json = {};
+  }
+
   const menuResponse = await fetch(
     "https://new-pc-backend.herokuapp.com" + "/menus"
   );

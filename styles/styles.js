@@ -377,10 +377,14 @@ export const ArtistImage = styled.img`
   @media (max-width: ${breakpoints.lg}) {
     width: 100%;
     grid-column: 1/4;
+    height: 400px;
+    object-fit: contain;
   }
   @media (min-width: ${breakpoints.lg}) {
     width: 100%;
     grid-column: 3/5;
+    height: 400px;
+    object-fit: contain;
   }
 `;
 
@@ -472,8 +476,16 @@ export const FooterLink = styled.div`
   display: inline flex;
 `;
 
-export const HomeLogo = styled.img`
-  width: 100%;
+export const HomeLogo = styled.div`
+  width: 90%;
+  position: fixed;
+  left: 0;
+  top: 40%;
+  z-index: -2;
+  height: 100%;
+  background-size: contain;
+  right: 0;
+  background-repeat: no-repeat;
 `;
 
 export const LogoContainer = styled.div`

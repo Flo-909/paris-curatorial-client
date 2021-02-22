@@ -73,35 +73,38 @@ const Home = ({ data }) => {
   return data && router.asPath === "/" ? (
     <div>
       <CircleContainer>{getPagesNumbers()}</CircleContainer>
-      {/* <HomeItem>
-        <LogoContainer>
-          <HomeLogo
-            src={"https://new-pc-backend.herokuapp.com" + data.logo.url}
-            alt={data.logo.alternativeText}
-          />
-        </LogoContainer>
-      </HomeItem> */}
+
       <ReactPageScroller pageOnChange={handlePageChange}>
         {data.homeContent
           ? data.homeContent.map((item, key) => {
               return (
                 <HomeItem key={item.id && item.id} id={item.id && item.id}>
-                  <HomeBox1>{item.homePageTitle}</HomeBox1>
-                  {/* <HomePlacerholder /> */}
+                  {item.homePageTitle && (
+                    <HomeBox1>{item.homePageTitle}</HomeBox1>
+                  )}
                   <HomeBox3>
                     <div>
                       {item.homePageDescription && item.homePageDescription}{" "}
                     </div>
-                    <More>
-                      {Line}
-                      <Link href={item.pageURL && item.pageURL}>
-                        {item.moreName && item.moreName}
-                      </Link>{" "}
-                    </More>
+                    {item.pageURL && item.moreName ? (
+                      <More>
+                        {Line}
+                        <Link href={item.pageURL}>{item.moreName}</Link>
+                      </More>
+                    ) : null}
                   </HomeBox3>
                   <HomeBox2>
                     {item.homePageTitle && item.homePageTitle}
                   </HomeBox2>
+                  {item.pageLogo ? (
+                    <HomeLogo
+                      style={{ backgroundImage: `url(${item.pageLogo.url})` }}
+                    />
+                  ) : // <HomeLogo
+                  //   src={item.pageLogo.url}
+                  //   alt={item.homePageTitle}
+                  // />
+                  null}
                 </HomeItem>
               );
             })

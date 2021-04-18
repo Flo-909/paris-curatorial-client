@@ -8,6 +8,7 @@ import {
 } from "../styles/styles";
 
 const Privacy = ({ data }) => {
+  console.log("data", data);
   const {
     privacyContent,
     pageHeadline,
@@ -38,3 +39,19 @@ const Privacy = ({ data }) => {
 };
 
 export default Privacy;
+
+export const getServerSideProps = async (context) => {
+  const { resolvedUrl: path, locale } = context;
+
+  const resMentionsLegales = await fetch(
+    "https://new-pc-backend.herokuapp.com" + "/privacy-policies"
+  );
+  const jsonMentionsLegales = await resMentionsLegales.json();
+  const data = locale
+    ? jsonMentionsLegales.find((item) => item.language === locale)
+    : jsonMentionsLegales.find((item) => item.language === "fr");
+
+  return {
+    props: { data },
+  };
+};

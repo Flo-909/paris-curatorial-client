@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import Projects from "../components/Projects";
 import About from "../components/About";
 import Artists from "../components/Artists";
-import Privacy from "../components/Privacy";
+import Privacy from "./mentions-legales";
 import Terms from "../components/Terms";
 import Contact from "../components/Contact";
 import Menu from "../components/Menu";
@@ -103,7 +103,7 @@ const Pages = ({ json, path, locale, splitURL, menu, footer }) => {
       </main>
 
       <footer>
-        <Footer menu={menu} footer={footer} />
+        <Footer menu={menu} footer={footer} locale={locale} />
       </footer>
     </div>
   ) : null;

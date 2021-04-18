@@ -11,8 +11,8 @@ import {
 import { Router } from "next/router";
 import Link from "next/link";
 
-const Footer = ({ menu, footer }) => {
-  console.log("in footer, menu", footer, menu);
+const Footer = ({ menu, footer, locale }) => {
+  console.log("in footer, menu", footer, menu, locale);
 
   return (
     <FooterStyle>
@@ -32,6 +32,9 @@ const Footer = ({ menu, footer }) => {
           {footer.address2 && <FooterLink>{footer.address2}</FooterLink>}
           {footer.address3 && <FooterLink>{footer.address3}</FooterLink>}
           {footer.address4 && <FooterLink>{footer.address4}</FooterLink>}
+          <Link href="/mentions-legales">
+            <a>{locale === "fr" ? "Mentions Légales" : "Privacy Policies"}</a>
+          </Link>
         </div>
       ) : null}
 

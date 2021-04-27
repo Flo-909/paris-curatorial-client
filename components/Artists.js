@@ -6,6 +6,7 @@ import {
   ProjectSubheadline,
   ProjectDate,
   ProjectDetail,
+  ArtistImageContainer,
   ArtistImage,
   LangButtonComponent,
   ProjectDescription,
@@ -33,13 +34,31 @@ const Artists = ({ data }) => {
             <>
               <ProjectHeadline>
                 <h2>{item.artistName && item.artistName}</h2>
+                {item.artistDescription &&
+                  item.artistDescription
+                    .split("*")
+                    .map((item) => <p key={item}>{item}</p>)}
+                <div>
+                  <a
+                    href={item.pdfDocument}
+                    download={item.pdfDocument}
+                    target="_blank"
+                  >
+                    Télécharger
+                  </a>
+                </div>
               </ProjectHeadline>
-              <ProjectSubheadline>
-                {item.artistDescription && item.artistDescription}
-              </ProjectSubheadline>
+
               {item.artworks
                 ? item.artworks.map((el) => (
-                    <>
+                    <ArtistImageContainer>
+                      <ArtistImage
+                        src={el.artworkImage.url && el.artworkImage.url}
+                        alt={
+                          el.artworkImage.alternativeText &&
+                          el.artworkImage.alternativeText
+                        }
+                      />
                       <ProjectDate>
                         {el.artworkDate && el.artworkDate}
                       </ProjectDate>
@@ -51,14 +70,7 @@ const Artists = ({ data }) => {
                           {el.artworkDescription && el.artworkDescription}
                         </div>
                       </ProjectDetail>
-                      <ArtistImage
-                        src={el.artworkImage.url && el.artworkImage.url}
-                        alt={
-                          el.artworkImage.alternativeText &&
-                          el.artworkImage.alternativeText
-                        }
-                      />
-                    </>
+                    </ArtistImageContainer>
                   ))
                 : null}
             </>

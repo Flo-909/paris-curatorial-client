@@ -23,13 +23,17 @@ const About = ({ data }) => {
   } = data;
 
   console.log("data", data);
+
   return data ? (
     <PageLayout>
       <PageHeadline>
         <h1>{pageHeadline && pageHeadline}</h1>
       </PageHeadline>
       <AboutBox2>
-        <p>{pageSubheadline && pageSubheadline}</p>
+        <p>
+          {pageSubheadline &&
+            pageSubheadline.split("*").map((item) => <p key={item}>{item}</p>)}
+        </p>
       </AboutBox2>
       {textContents
         ? textContents.map((item) => (
@@ -39,10 +43,16 @@ const About = ({ data }) => {
                 ? item.contents.map((el) => (
                     <>
                       <AboutBox4>
-                        {el.contentSubheadline && el.contentSubheadline}
+                        {el.contentSubheadline &&
+                          el.contentSubheadline
+                            .split("*")
+                            .map((item) => <p key={item}>{item}</p>)}
                       </AboutBox4>
                       <AboutBox5>
-                        {el.contentDescription && el.contentDescription}
+                        {el.contentDescription &&
+                          el.contentDescription
+                            .split("*")
+                            .map((item) => <p key={item}>{item}</p>)}
                         <p></p>
                         {el.linkName && el.linkURL ? (
                           <a href={el.linkURL && el.linkURL} target="_blank">

@@ -132,10 +132,10 @@ export const PageLayout = styled.div`
   display: grid;
   padding: 10px;
   margin-bottom: 200px;
-  column-gap: 5px;
   row-gap: 20px;
   text-align: justify;
   animation: ${slide} 0.6s linear;
+  column-gap: 5px;
   @media (max-width: ${breakpoints.lg}) {
     grid-template-columns: 25% 50% 20%;
   }
@@ -283,76 +283,63 @@ export const AboutBox5 = styled.div`
 `;
 export const ProjectHeadline = styled.div`
   @media (max-width: ${breakpoints.lg}) {
-    grid-column: 2/3;
-    justify-self: center;
+    grid-column: 1/4;
+    justify-self: start;
     font-weight: 600;
   }
   @media (min-width: ${breakpoints.lg}) {
     line-height: 1.5em;
     grid-column: 1/3;
-    justify-self: center;
+    justify-self: start;
     font-weight: 600;
   }
 `;
+
 export const ProjectSubheadline = styled.div`
   @media (max-width: ${breakpoints.lg}) {
     grid-column: 2/4;
   }
   @media (min-width: ${breakpoints.lg}) {
     line-height: 1.5em;
-    grid-column: 2/4;
+    grid-column: 1/3;
+    text-align: left;
   }
 `;
+
 export const ProjectDate = styled.div`
-  @media (max-width: ${breakpoints.lg}) {
-    grid-column: 1/2;
-    justify-self: end;
-    justify-self: end;
-    align-items: center;
-  }
-  @media (min-width: ${breakpoints.lg}) {
-    line-height: 1.5em;
-    grid-column: 1/2;
-    justify-self: end;
-    align-items: center;
-  }
+  text-align: center;
 `;
+
 export const ProjectLocation = styled.div`
+  text-align: center;
+`;
+
+export const ProjectImageContainer = styled.div`
   @media (max-width: ${breakpoints.lg}) {
-    grid-column: 3/4;
+    grid-column: 1/4;
+    margin-bottom: 30px;
   }
   @media (min-width: ${breakpoints.lg}) {
-    line-height: 1.5em;
-    grid-column: 4/5;
+    grid-column: 3/5;
   }
 `;
+
 export const ProjectImage = styled.img`
   @media (max-width: ${breakpoints.lg}) {
-    grid-column: 1/5;
-    line-height: 1.5em;
     width: 100%;
-    height: 50vh;
-    object-fit: cover;
-    grid-column: 1/5;
+    max-height: 400px;
+
+    object-fit: contain;
   }
   @media (min-width: ${breakpoints.lg}) {
-    line-height: 1.5em;
     width: 100%;
-    height: 50vh;
-    object-fit: cover;
-    grid-column: 1/5;
+    max-height: 400px;
+    padding: 10px;
   }
 `;
-export const ProjectDetail = styled.div`
-  @media (max-width: ${breakpoints.lg}) {
-    grid-column: 2/3;
-    justify-self: center;
-  }
 
-  @media (min-width: ${breakpoints.lg}) {
-    grid-column: 2/3;
-    justify-self: center;
-  }
+export const ProjectDetail = styled.div`
+  text-align: center;
 `;
 
 export const ArtistTitle = styled.div`
@@ -373,18 +360,28 @@ export const ProjectDescription = styled.div`
   }
 `;
 
+export const ArtistImageContainer = styled.div`
+  @media (max-width: ${breakpoints.lg}) {
+    grid-column: 1/4;
+    margin-bottom: 30px;
+  }
+  @media (min-width: ${breakpoints.lg}) {
+    grid-column: 3/5;
+    margin-top: 20px;
+  }
+`;
+
 export const ArtistImage = styled.img`
   @media (max-width: ${breakpoints.lg}) {
     width: 100%;
-    grid-column: 1/4;
-    height: 400px;
+    max-height: 400px;
     object-fit: contain;
   }
   @media (min-width: ${breakpoints.lg}) {
     width: 100%;
-    grid-column: 3/5;
-    height: 400px;
     object-fit: contain;
+    padding: 10px;
+    max-height: 400px;
   }
 `;
 

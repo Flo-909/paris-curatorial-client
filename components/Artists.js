@@ -38,15 +38,19 @@ const Artists = ({ data }) => {
                   item.artistDescription
                     .split("*")
                     .map((item) => <p key={item}>{item}</p>)}
-                <div>
-                  <a
-                    href={item.pdfDocument}
-                    download={item.pdfDocument}
-                    target="_blank"
-                  >
-                    Télécharger
-                  </a>
-                </div>
+
+                {item.pdfDocument && (
+                  <div>
+                    <a
+                      href={item.pdfDocument.url}
+                      name={item.pdfDocument.name}
+                      target="_blank"
+                      download
+                    >
+                      {item.pdfButton ? item.pdfButton : "Télécharger"}
+                    </a>
+                  </div>
+                )}
               </ProjectHeadline>
 
               {item.artworks

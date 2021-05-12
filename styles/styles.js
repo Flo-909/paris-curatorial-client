@@ -163,20 +163,20 @@ export const MenuPageLayout = styled.div`
 `;
 
 export const PageMenu = styled.div`
-  margin: 25px;
+  margin: 20px;
   -webkit-animation: ${menuTextAnim} 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94)
     1s both;
   animation: ${menuTextAnim} 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) 1s both;
   @media (max-width: ${breakpoints.lg}) {
     justify-self: center;
     color: white;
-    font-size: 20px;
+    font-size: 25px;
     font-weight: semi-bold;
   }
   @media (min-width: ${breakpoints.lg}) {
     justify-self: center;
     color: white;
-    font-size: 30px;
+    font-size: 25px;
     font-weight: semi-bold;
   }
 `;
@@ -240,7 +240,20 @@ export const BoxContainer = styled.div`
     max-width: 1200px;
   }
 `;
-
+export const MediaBox = styled.div`
+  @media (max-width: ${breakpoints.lg}) {
+    grid-column: 2/5;
+    line-height: 1.5em;
+    justify-self: center;
+    font-weight: normal;
+  }
+  @media (min-width: ${breakpoints.lg}) {
+    line-height: 1.5em;
+    grid-column: 1/2;
+    justify-self: end;
+    font-weight: normal;
+  }
+`;
 export const AboutBox3 = styled.div`
   @media (max-width: ${breakpoints.lg}) {
     line-height: 1.5em;
@@ -503,13 +516,14 @@ export const LogoContainer = styled.div`
   }
 `;
 
-export const LogoImage = styled(Image)`
+export const LogoImage = styled.img`
   animation: ${headlineAnim} 0.6s cubic-bezier(0.39, 0.575, 0.565, 1) 1s both;
   position: fixed:
   left: 10px;
   top: 10px;
   cursor: pointer;
   z-index: 1;
+  width: 130px;
 `;
 
 export const HomeContainer = styled.div`
@@ -676,4 +690,17 @@ export const ErrorButton = styled(Link)`
   color: white;
   border-radius: 20px;
   padding: 10px 30px;
+`;
+export const ProfileImage = styled.img`
+  @media (max-width: ${breakpoints.lg}) {
+    width: 100%;
+    max-height: 400px;
+    object-fit: cover;
+    grid-column: 2/4;
+  }
+  @media (min-width: ${breakpoints.lg}) {
+    width: 100%;
+    object-fit: contain;
+    padding: 20px;
+  }
 `;

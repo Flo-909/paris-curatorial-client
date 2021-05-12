@@ -41,24 +41,6 @@ const Index = ({ json, path, locale, menu }) => {
 
   return data ? (
     <div className={styles.container}>
-      <Head>
-        <link rel="icon" href="/logo.png" />
-        <title>{data.pageHeadline.toUpperCase()} | Paris Curatorial</title>
-        <meta
-          name="viewport"
-          content="width=device-width, initial-scale=1.0"
-        ></meta>
-        {data.metaTags
-          ? data.metaTags.map((tag) => {
-              if (tag.type === "MetaValue") {
-                return <meta name={tag.name} content={tag.value}></meta>;
-              } else if (tag.type === "MetaProperty") {
-                return <meta property={tag.name} content={tag.value} />;
-              }
-            })
-          : null}
-      </Head>
-
       <main>
         <Menu menu={menu} />
         {path === "/" && <Home data={data} />}

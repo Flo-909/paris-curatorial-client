@@ -50,7 +50,7 @@ const Menu = ({ menu }) => {
   return (
     <MenuContainer>
       <Link href="/">
-        <LogoImage width={130} height={50} src="/logo.png" alt="logo" />
+        <LogoImage src="/logo.png" alt="logo" />
       </Link>
 
       <MenuButtonComponent

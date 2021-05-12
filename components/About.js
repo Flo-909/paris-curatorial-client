@@ -9,10 +9,16 @@ import {
   AboutBox3,
   AboutBox4,
   AboutBox5,
+  ArtistImage,
   LangButtonComponent,
+  MediaBox,
+  ProfileImage,
 } from "../styles/styles";
+import { useRouter } from "next/router";
 
 const About = ({ data }) => {
+  const router = useRouter();
+  console.log("Router", router);
   const {
     pageHeadline,
     pageSubheadline,
@@ -20,6 +26,8 @@ const About = ({ data }) => {
     socialMedias,
     textContents,
     language,
+    pictureName,
+    profilePicture,
   } = data;
 
   console.log("data", data);
@@ -29,12 +37,17 @@ const About = ({ data }) => {
       <PageHeadline>
         <h1>{pageHeadline && pageHeadline}</h1>
       </PageHeadline>
+      {router.asPath === "/about-grigori-michel" ? (
+        <ProfileImage src="/grig.jpg" />
+      ) : null}
+
       <AboutBox2>
         <p>
           {pageSubheadline &&
             pageSubheadline.split("*").map((item) => <p key={item}>{item}</p>)}
         </p>
       </AboutBox2>
+
       {textContents
         ? textContents.map((item) => (
             <>
@@ -69,9 +82,7 @@ const About = ({ data }) => {
       {socialMedias
         ? socialMedias.map((media) => (
             <>
-              <AboutBox3>
-                {media.mediaHeadline && media.mediaHeadline}
-              </AboutBox3>
+              <MediaBox>{media.mediaHeadline && media.mediaHeadline}</MediaBox>
               {media.medias
                 ? media.medias.map((elmedia) => (
                     <>

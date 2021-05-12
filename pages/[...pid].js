@@ -11,30 +11,18 @@ import Head from "next/head";
 import Footer from "../components/Footer";
 import Home from "../components/Home";
 import { LoadingImage, LoadingContainer } from "../styles/styles";
+import BasicMeta from "../components/meta/BasicMeta";
+import OpenGraphMeta from "../components/meta/OpenGraphMeta";
+import TwitterCardMeta from "../components/meta/TwitterCardMeta";
 
-const Pages = ({ json, path, locale, splitURL, menu, footer }) => {
-  console.log("path", path);
+const Pages = ({ data, path, locale, splitURL, menu, footer }) => {
+  console.log("path", path, splitURL);
   console.log("locale", locale);
-  console.log("splitURL", splitURL);
+  console.log("data", data);
 
-  const [data, setData] = useState();
   const [loading, setLoading] = useState(false);
   const router = useRouter();
-
   const { pid } = router.query;
-  console.log(data);
-
-  useEffect(() => {
-    if (json && locale) {
-      const newData = json.find((item) => item.language === locale);
-      setData(newData);
-    } else if (json && !locale) {
-      const newData = json.find((item) => item.language === "fr");
-      setData(newData);
-    } else {
-      console.log("error in fetch");
-    }
-  }, [json]);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -73,29 +61,25 @@ const Pages = ({ json, path, locale, splitURL, menu, footer }) => {
       }
   };
 
-  return pid && !loading && data && json ? (
+  return pid && !loading && data ? (
     <div key={Date.now()}>
-      <Head>
-        <title>{data.pageHeadline.toUpperCase()} | Paris Curatorial</title>
-        <link rel="icon" href="/logo.png" />
-        <meta
-          name="viewport"
-          content="width=device-width, initial-scale=1.0"
-        ></meta>
-        {data.metaTags
-          ? data.metaTags.map((tag) => {
-              if (tag.type === "MetaValue") {
-                return <meta name={tag.name} content={tag.value}></meta>;
-              } else if (tag.type === "MetaProperty") {
-                return <meta property={tag.name} content={tag.value} />;
-              }
-            })
-          : null}
-        <link
-          rel="canonical"
-          href={`pariscuratorial.com/${router.locale}${router.pathname}`}
-        />
-      </Head>
+      <BasicMeta
+        title={data.pageHeadline}
+        description={data.pageDescription ? data.pageDescription : ""}
+        keywords={""}
+        author={"Paris Curatorial"}
+        url={splitURL}
+      />
+      <OpenGraphMeta
+        title={data.pageHeadline}
+        description={data.pageDescription ? data.pageDescription : ""}
+        url={splitURL}
+      />
+      <TwitterCardMeta
+        title={data.pageHeadline}
+        description={data.pageDescription ? data.pageDescription : ""}
+        url={splitURL}
+      />
       <main>
         <Menu menu={menu} />
         {renderContent()}
@@ -113,7 +97,7 @@ export default Pages;
 
 export const getServerSideProps = async (context) => {
   const { resolvedUrl: path, locale } = context;
-  let json = {};
+  let data = {};
   let menu = {};
   let footer = {};
 
@@ -124,9 +108,16 @@ export const getServerSideProps = async (context) => {
     const response = await fetch(
       "https://new-pc-backend.herokuapp.com" + fetchUrl
     );
-    json = await response.json();
+    const json = await response.json();
+    if (json && locale) {
+      const newData = json.find((item) => item.language === locale);
+      data = newData;
+    } else if (json && !locale) {
+      const newData = json.find((item) => item.language === "fr");
+      data = newData;
+    }
   } catch (error) {
-    json = {};
+    data = {};
   }
 
   const menuResponse = await fetch(
@@ -173,6 +164,6 @@ export const getServerSideProps = async (context) => {
   // }
 
   return {
-    props: { path, json, locale, splitURL, menu, footer },
+    props: { path, data, locale, splitURL, menu, footer },
   };
 };

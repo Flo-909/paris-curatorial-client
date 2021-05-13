@@ -25,7 +25,7 @@ function Error({ statusCode }) {
       </p>
       <ErrorButton href="/"> Click to Continue</ErrorButton>
       <LoadingContainer>
-        <LoadingImage width={200} height={80} src="/logo.png" />
+        <LoadingImage width={200} height={80} src="/pc-logo-trans.png" />
       </LoadingContainer>
     </ErrorContainer>
   );

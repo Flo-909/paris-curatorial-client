@@ -55,7 +55,7 @@ const Pages = ({ data, path, locale, splitURL, menu, footer }) => {
           router.push("/");
           return (
             <LoadingContainer>
-              <LoadingImage width={200} height={80} src="/logo.png" />
+              <LoadingImage width={200} height={80} src="/pc-logo-trans.png" />
             </LoadingContainer>
           );
       }

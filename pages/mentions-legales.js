@@ -53,7 +53,10 @@ const Privacy = ({ data, menu }) => {
                   {item.privacyHeadline && item.privacyHeadline}
                 </PrivacyHeadline>
                 <PrivacyParagraph>
-                  {item.privacyParagraph && item.privacyParagraph}
+                  {item.privacyParagraph &&
+                    item.privacyParagraph
+                      .split("*")
+                      .map((item) => <p key={item}>{item}</p>)}
                 </PrivacyParagraph>
               </>
             ))

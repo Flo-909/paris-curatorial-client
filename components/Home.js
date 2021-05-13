@@ -84,7 +84,10 @@ const Home = ({ data }) => {
                   )}
                   <HomeBox3>
                     <div>
-                      {item.homePageDescription && item.homePageDescription}{" "}
+                      {item.homePageDescription &&
+                        item.homePageDescription
+                          .split("*")
+                          .map((item) => <p key={item}>{item}</p>)}{" "}
                     </div>
                     {item.pageURL && item.moreName ? (
                       <More>

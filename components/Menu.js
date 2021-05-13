@@ -29,7 +29,7 @@ const Menu = ({ menu }) => {
                 </PageMenu>
               ))
             : null}
-          <LangButtonComponent>
+          {/* <LangButtonComponent>
             <LangButton>
               <Link href={router.asPath && router.asPath} locale="en">
                 EN
@@ -41,7 +41,7 @@ const Menu = ({ menu }) => {
                 FR
               </Link>
             </LangButton>
-          </LangButtonComponent>
+          </LangButtonComponent> */}
         </MenuPageLayout>
       );
     }

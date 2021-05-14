@@ -7,9 +7,9 @@ import { LoadingImage, LoadingContainer } from "../styles/styles";
 import { useRouter } from "next/router";
 
 const Index = ({ json, path, locale, menu }) => {
-  console.log("json", json);
-  console.log("path", path);
-  console.log("locale", locale);
+  // console.log("json", json);
+  // console.log("path", path);
+  // console.log("locale", locale);
 
   const [data, setData] = useState();
 

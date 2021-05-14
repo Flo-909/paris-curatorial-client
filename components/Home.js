@@ -22,7 +22,6 @@ const Home = ({ data }) => {
   const [currentPage, setCurrentPage] = useState(0);
   const [content, setContent] = useState([]);
   const router = useRouter();
-  console.log(router);
 
   const Line = (
     <svg
@@ -49,7 +48,6 @@ const Home = ({ data }) => {
   }, []);
 
   const handlePageChange = (number) => {
-    console.log(number);
     setCurrentPage(number + 1);
   };
 

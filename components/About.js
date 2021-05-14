@@ -18,7 +18,7 @@ import { useRouter } from "next/router";
 
 const About = ({ data }) => {
   const router = useRouter();
-  console.log("Router", router);
+
   const {
     pageHeadline,
     pageSubheadline,
@@ -29,8 +29,6 @@ const About = ({ data }) => {
     pictureName,
     profilePicture,
   } = data;
-
-  console.log("data", data);
 
   return data ? (
     <PageLayout>

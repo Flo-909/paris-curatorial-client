@@ -334,6 +334,7 @@ export const ProjectImageContainer = styled.div`
   }
   @media (min-width: ${breakpoints.lg}) {
     grid-column: 3/5;
+    margin-top: 20px;
   }
 `;
 

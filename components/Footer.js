@@ -12,8 +12,6 @@ import { Router } from "next/router";
 import Link from "next/link";
 
 const Footer = ({ menu, footer, locale }) => {
-  console.log("in footer, menu", footer, menu, locale);
-
   return (
     <FooterStyle>
       {footer ? (

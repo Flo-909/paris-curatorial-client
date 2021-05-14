@@ -16,9 +16,9 @@ import OpenGraphMeta from "../components/meta/OpenGraphMeta";
 import TwitterCardMeta from "../components/meta/TwitterCardMeta";
 
 const Pages = ({ data, path, locale, splitURL, menu, footer }) => {
-  console.log("path", path, splitURL);
-  console.log("locale", locale);
-  console.log("data", data);
+  // console.log("path", path, splitURL);
+  // console.log("locale", locale);
+  // console.log("data", data);
 
   const [loading, setLoading] = useState(false);
   const router = useRouter();

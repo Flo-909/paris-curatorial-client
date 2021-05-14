@@ -28,7 +28,7 @@ const Projects = ({ data }) => {
     imageCredit,
     language,
   } = data;
-  console.log("data", data);
+
   return (
     <PageLayout>
       <PageHeadline>

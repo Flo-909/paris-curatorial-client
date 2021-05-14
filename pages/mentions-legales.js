@@ -13,7 +13,7 @@ import {
 } from "../styles/styles";
 
 const Privacy = ({ data, menu }) => {
-  console.log("data", data);
+  // console.log("data", data);
   const {
     privacyContent,
     pageHeadline,

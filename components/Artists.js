@@ -23,7 +23,7 @@ const Artists = ({ data }) => {
     artworkDescription,
     language,
   } = data;
-  console.log("artist", data);
+
   return (
     <PageLayout>
       <PageHeadline>

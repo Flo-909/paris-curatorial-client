@@ -12,7 +12,6 @@ import { useRouter } from "next/router";
 import Link from "next/link";
 
 const Menu = ({ menu }) => {
-  console.log("menu", menu);
   const router = useRouter();
   const [menuOpen, setMenuOpen] = useState(false);
 

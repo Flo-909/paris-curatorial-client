@@ -50,7 +50,7 @@ const Menu = ({ menu }) => {
   return (
     <MenuContainer>
       <Link href="/">
-        <LogoImage src="/pc-logo-trans.png" alt="logo" />
+        <LogoImage src="/Logo-PC-solo-gris.png" alt="logo" />
       </Link>
 
       <MenuButtonComponent

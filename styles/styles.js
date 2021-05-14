@@ -348,6 +348,7 @@ export const ProjectImage = styled.img`
     width: 100%;
     max-height: 400px;
     padding: 10px;
+    justify-self: center;
   }
 `;
 

@@ -571,7 +571,7 @@ export const HomeBox1 = styled.div`
     justify-self: end;
     font-weight: normal;
     font-size: 1em;
-    margin-top: 20px;
+    margin-top: 60px;
   }
   @media (min-width: ${breakpoints.lg}) {
     line-height: 1.5em;

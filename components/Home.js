@@ -22,7 +22,7 @@ const Home = ({ data }) => {
   const [currentPage, setCurrentPage] = useState(0);
   const [content, setContent] = useState([]);
   const router = useRouter();
-  console.log("data", data);
+
   const Line = (
     <svg
       width="60"

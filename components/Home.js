@@ -22,7 +22,7 @@ const Home = ({ data }) => {
   const [currentPage, setCurrentPage] = useState(0);
   const [content, setContent] = useState([]);
   const router = useRouter();
-
+  console.log("data", data);
   const Line = (
     <svg
       width="60"
@@ -75,18 +75,31 @@ const Home = ({ data }) => {
       <ReactPageScroller pageOnChange={handlePageChange}>
         {data.homeContent
           ? data.homeContent.map((item, key) => {
+              const desktopDescription =
+                item.homePageDescription &&
+                item.homePageDescription
+                  .split("*")
+                  .map((el) => <p key={el}>{el}</p>);
+              const mobileDescription =
+                item.homePageDescription &&
+                item.homePageDescription.slice(0, 100) + "...";
+
+              //
+
+              // debugger;
+
+              const pageDescription = window.matchMedia("(min-width: 500px)")
+                .matches
+                ? desktopDescription
+                : mobileDescription;
+
               return (
                 <HomeItem key={item.id && item.id} id={item.id && item.id}>
                   {item.homePageTitle && (
                     <HomeBox1>{item.homePageTitle}</HomeBox1>
                   )}
                   <HomeBox3>
-                    <div>
-                      {item.homePageDescription &&
-                        item.homePageDescription
-                          .split("*")
-                          .map((item) => <p key={item}>{item}</p>)}{" "}
-                    </div>
+                    <div>{pageDescription}</div>
                     {item.pageURL && item.moreName ? (
                       <More>
                         {Line}

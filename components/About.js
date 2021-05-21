@@ -1,5 +1,5 @@
 import { Global } from "@emotion/react";
-import React from "react";
+import React, { useEffect } from "react";
 import {
   PageLayout,
   BoxContainer,
@@ -13,6 +13,7 @@ import {
   LangButtonComponent,
   MediaBox,
   ProfileImage,
+  ProfilDiv,
 } from "../styles/styles";
 import { useRouter } from "next/router";
 
@@ -30,14 +31,20 @@ const About = ({ data }) => {
     profilePicture,
   } = data;
 
+  const grigoriProfile = (
+    <ProfilDiv>
+      <ProfileImage src="/grig.jpg" />
+      <h5>© Sophie Bassoule</h5>
+    </ProfilDiv>
+  );
+
   return data ? (
     <PageLayout>
       <PageHeadline>
-        <h1>{pageHeadline && pageHeadline}</h1>
+        <h1>{pageHeadline}</h1>
       </PageHeadline>
-      {router.asPath === "/about-grigori-michel" ? (
-        <ProfileImage src="/grig.jpg" />
-      ) : null}
+
+      {router.asPath === "/about-grigori-michel" ? grigoriProfile : null}
 
       <AboutBox2>
         <p>

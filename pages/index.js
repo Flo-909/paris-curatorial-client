@@ -25,10 +25,6 @@ const Index = ({ json, path, locale, menu }) => {
     }
   }, [json]);
 
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
-
   const loadingImage = () => {
     if (!data && path === "/") {
       return (

@@ -7,6 +7,8 @@ export const globalStyles = (
   <Global
     styles={css`
       font-family: Raleway, sans-serif;
+      overflow: auto;
+      height: 100%;
     `}
   />
 );
@@ -692,16 +694,25 @@ export const ErrorButton = styled(Link)`
   border-radius: 20px;
   padding: 10px 30px;
 `;
+
+export const ProfilDiv = styled.div`
+  @media (max-width: ${breakpoints.lg}) {
+    grid-column: 2/4;
+    padding: 20px;
+  }
+  @media (min-width: ${breakpoints.lg}) {
+    padding: 20px;
+  }
+`;
+
 export const ProfileImage = styled.img`
   @media (max-width: ${breakpoints.lg}) {
     width: 100%;
     max-height: 400px;
     object-fit: cover;
-    grid-column: 2/4;
   }
   @media (min-width: ${breakpoints.lg}) {
     width: 100%;
     object-fit: contain;
-    padding: 20px;
   }
 `;

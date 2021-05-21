@@ -25,7 +25,7 @@ const Pages = ({ data, path, locale, splitURL, menu, footer }) => {
   const { pid } = router.query;
 
   useEffect(() => {
-    window.scrollTo(0, 0);
+    window.history.scrollRestoration = "manual";
   }, []);
 
   const renderContent = () => {
